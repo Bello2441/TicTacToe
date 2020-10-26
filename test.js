@@ -9,7 +9,6 @@ function Squares(props) {
   
   
   class Board extends React.Component {
-      
       handleClick(i) {
         const squares = this.state.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
@@ -27,15 +26,6 @@ function Squares(props) {
     }
   
     render() {
-      const winner = calculateWinner(this.state.squares);
-      let status;
-      if (winner) {
-        status = 'Winner: ' + winner;
-      } else {
-        status = 'Next player: ' + this.state.XisNext ? 'X' : 'O';
-      }
-      const status = 'Next player: ' + this.state.XisNext ? 'X' : 'O';
-  
       return (
         <div>
           <div className="status">{status}</div>
@@ -70,10 +60,22 @@ function Squares(props) {
       };
     }
     render() {
+      const history = this.state.history;
+      const current = history[history.length - 1];
+      const winner = calculateWinner(current.squares);
+      let status;
+      if (winner) {
+        status = 'Winner: ' + winner;
+      } else {
+        status = 'Next player: ' + (this.state.XisNext ? 'X' : 'O');
+      }
       return (
         <div className="game">
           <div className="game-board">
-            <Board />
+            <Board 
+            squares={current.square}
+            onClick={(i) => this.handleClick(i)}
+            />
           </div>
           <div className="game-info">
             <div>{status}</div>
