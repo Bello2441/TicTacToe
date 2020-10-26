@@ -1,7 +1,7 @@
 function Squares(props) {
       return (
         <button className="square" 
-        onClick={props.squares}>
+        onClick={props.onClick}>
           {props.value}
         </button>
       );
@@ -16,18 +16,17 @@ function Squares(props) {
               XisNext : true,
           }
       }
-    renderSquare(i) {
-      return <Square value={this.state.squares[i]}
-      onClick={() => this.handleClick[i]}/>;
-    }
-
-    handleClick(i) {
+      handleClick(i) {
         const squares = this.state.squares.slice();
         squares[i] = this.state.XisNext ? 'X' : 'O';
         this.setState({
             squares:squares,
             XisNext : !this.state.XisNext,
         });
+      }
+    renderSquare(i) {
+      return <Square value={this.state.squares[i]}
+      onClick={() => this.handleClick[i]}/>;
     }
   
     render() {
